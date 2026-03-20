@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김옐레나 — PCO 포트폴리오</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d2137;
+    --paper: #eef3fa;
+    --accent: #1a6bb5;
+    --muted: #5a7a9a;
+    --light: #c8daf0;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,218,240,0.1);
+  }
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,218,240,0.07);
+  }
+
+  .hero-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(52px, 7vw, 96px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.4s;
+  }
+  .hero-name span {
+    color: rgba(200,218,240,0.4);
+    display: block;
+    font-size: 0.42em;
+    letter-spacing: 0.08em;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    margin-top: 8px;
+  }
+
+  .hero-bottom {
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.7s;
+  }
+
+  .hero-tagline {
+    font-size: 13px;
+    line-height: 2.2;
+    color: rgba(200,218,240,0.7);
+    font-weight: 300;
+    word-break: keep-all;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+  }
+
+  .contact-row {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .contact-row a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(200,218,240,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-row a:hover { color: var(--accent); }
+
+  .hero-right {
+    background: var(--white);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 48px;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 0.9s;
+  }
+
+  .stat-block { border-left: 2px solid var(--light); padding-left: 20px; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .stat-num sup { font-size: 0.4em; vertical-align: super; color: var(--accent); }
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+  }
+
+  .lang-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 32px; }
+  .lang-pill {
+    padding: 6px 14px;
+    border: 1px solid var(--light);
+    border-radius: 100px;
+    font-size: 11px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 80px; }
+
+  .section-label {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    margin-bottom: 48px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::after { display: none; }
+
+  /* ── EXPERIENCE ── */
+  .experience-section { background: var(--white); }
+  .exp-grid { display: flex; flex-direction: column; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0 48px;
+    padding: 44px 0;
+    border-bottom: 1px solid var(--light);
+  }
+  .exp-item:first-child { border-top: 1px solid var(--light); }
+
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+  }
+  .exp-duration {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 10px;
+    color: var(--accent);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  .exp-org { font-size: 12px; color: var(--muted); margin-top: 8px; font-weight: 400; }
+  .exp-rank { font-family: 'Noto Sans KR', sans-serif; font-size: 10px; color: var(--accent); margin-top: 5px; font-weight: 400; opacity: 0.7; }
+
+  .exp-role {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+
+  .sub-events { display: flex; flex-direction: column; gap: 16px; }
+  .sub-event {
+    padding: 16px 20px;
+    background: var(--paper);
+    border-left: 2px solid var(--light);
+    transition: border-color 0.3s;
+  }
+  .sub-event:hover { border-color: var(--accent); }
+
+  .sub-event-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 3px; word-break: keep-all; }
+  .sub-event-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .sub-event-tasks { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .sub-event-tasks li {
+    font-size: 12px;
+    color: var(--muted);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.7;
+    word-break: keep-all;
+  }
+  .sub-event-tasks li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 16px;
+    line-height: 1.1;
+  }
+
+  /* ── ADDITIONAL ── */
+  .additional-section { background: var(--paper); }
+  .add-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px; }
+  .add-card { background: var(--white); padding: 28px; transition: transform 0.3s; }
+  .add-card:hover { transform: translateY(-3px); }
+  .add-year { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); margin-bottom: 10px; }
+  .add-title { font-family: 'Noto Serif KR', serif; font-size: 18px; font-weight: 400; line-height: 1.4; margin-bottom: 5px; }
+  .add-org { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+  .add-desc { font-size: 12px; color: var(--muted); line-height: 1.8; word-break: keep-all; }
+
+  /* ── SKILLS ── */
+  .skills-section { background: var(--ink); color: var(--paper); }
+  .skills-section .section-label { color: #6ab0f5; }
+  .skills-section .section-label::after { background: rgba(200,218,240,0.15); }
+  .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+  .skill-category-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: rgba(200,218,240,0.3);
+    margin-bottom: 32px;
+  }
+  .skill-list { display: flex; flex-direction: column; gap: 22px; }
+  .skill-name { font-size: 13px; font-weight: 400; color: var(--paper); margin-bottom: 8px; }
+  .skill-bar { height: 1px; background: rgba(200,218,240,0.12); position: relative; }
+  .skill-fill {
+    position: absolute; top: 0; left: 0; height: 100%;
+    background: #6ab0f5;
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+
+  /* ── EDUCATION ── */
+  .education-section { background: var(--paper); }
+  .edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .edu-card { background: var(--white); padding: 40px 32px; }
+  .edu-year { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); margin-bottom: 16px; }
+  .edu-degree { font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 400; line-height: 1.3; margin-bottom: 8px; }
+  .edu-field { font-size: 12px; color: var(--muted); margin-bottom: 4px; font-weight: 400; }
+  .edu-school { font-size: 12px; color: var(--muted); font-weight: 300; }
+  .edu-thesis {
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px solid var(--light);
+    font-size: 11px; color: var(--muted);
+    line-height: 1.7; font-style: italic; word-break: keep-all;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: var(--paper);
+    padding: 60px 80px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-name { font-family: 'Noto Serif KR', serif; font-size: 28px; font-weight: 300; }
+  .footer-contact { display: flex; flex-direction: column; gap: 6px; text-align: right; }
+  .footer-contact a {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: rgba(200,218,240,0.5); text-decoration: none; transition: color 0.2s;
+  }
+  .footer-contact a:hover { color: #6ab0f5; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { min-height: 70vh; }
+    section { padding: 60px 24px; }
+    .exp-item { grid-template-columns: 1fr; gap: 10px; }
+    .skills-layout { grid-template-columns: 1fr; gap: 40px; }
+    .edu-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    .footer-contact { text-align: center; }
+    .add-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── 히어로 ── -->
+<section class="hero" style="padding:0;">
+  <div class="hero-left">
+    <div class="hero-badge">PCO · 행사 코디네이터 · 프로젝트 매니저</div>
+    <div>
+      <div class="hero-name">
+        김옐레나
+        <span>Elena Kim</span>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <p class="hero-tagline">
+        국제회의 기획·운영 전문가로 3년 이상의 PCO 경력을 보유하고 있습니다.<br>국내외 연사 섭외 및 참가자 관리, Zoom 등 온라인 플랫폼 운영에 능하며,<br>한국어·영어·러시아어 3개 국어로 글로벌 커뮤니케이션이 가능합니다.
+      </p>
+      <div class="contact-row">
+        <a href="tel:010-7140-1005">010-7140-1005</a>
+        <a href="/cdn-cgi/l/email-protection#87eceeeaebe2e9e6beb3f4c7e0eae6eeeba9e4e8ea"><span class="__cf_email__" data-cfemail="a0cbc9cdccc5cec19994d3e0c7cdc1c9cc8ec3cfcd">[email&#160;protected]</span></a>
+        <a href="/cdn-cgi/l/email-protection#0d6664606168636c34397e4d636c7b687f236e6260"><span class="__cf_email__" data-cfemail="543f3d3938313a356d6027143a352231267a373b39">[email&#160;protected]</span></a>
+        <span style="color:rgba(200,218,240,0.3);font-size:11px;font-family:'Noto Sans KR',sans-serif;margin-top:2px;">경기 군포시 산본로</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div>
+      <div style="font-size:13px;color:var(--ink);margin-bottom:36px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;border-bottom:2px solid var(--accent);padding-bottom:10px;display:inline-block;">At a Glance</div>
+      <div style="display:flex;flex-direction:column;gap:28px;">
+        <div class="stat-block">
+          <div class="stat-num">3<sup>+</sup></div>
+          <div class="stat-label">년 경력</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">15<sup>+</sup></div>
+          <div class="stat-label">담당 행사</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">3</div>
+          <div class="stat-label">개 언어 구사</div>
+        </div>
+
+      </div>
+    </div>
+    <div>
+      <div style="font-size:13px;color:var(--ink);margin-bottom:16px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;border-bottom:2px solid var(--accent);padding-bottom:10px;display:inline-block;">Languages</div>
+      <div class="lang-row">
+        <div class="lang-pill">🇰🇷 한국어 — TOPIK 6급 (2021)</div>
+        <div class="lang-pill">🇬🇧 영어 — TOEIC 915점 (2026)</div>
+        <div class="lang-pill">🇷🇺 러시아어 — 원어민</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 경력 ── -->
+<section class="experience-section">
+  <div class="section-label">Experience</div>
+  <div class="exp-grid">
+
+    <!-- 프리랜서 -->
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">2023 — 현재</div>
+        <div class="exp-duration">진행 중</div>
+        <div class="exp-org">프리랜서 / 각 기관</div>
+      </div>
+      <div>
+        <div class="exp-role">Freelance · 행사 코디네이터</div>
+        <div class="sub-events">
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <!-- 헤더: 왼쪽 굵은 파란 세로선 + 흰 배경 -->
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Offline · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">Seoul ADR Festival 2025</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">KCAB INTERNATIONAL &nbsp;·&nbsp; 대행사 : 그라프</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2025.10.27 – 31</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:4px;font-weight:500;">근무 2.5개월</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 참가자 규모 -->
+            <div style="padding:12px 24px 0 24px;background:var(--white);border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink);">참가자 규모</div>
+                <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">총 <strong style="color:var(--accent);font-size:13px;">914</strong>명</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--light);border-left:5px solid var(--light);">
+              <div style="padding:10px 16px;text-align:center;border-right:1px solid var(--light);">
+                <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">Welcome Reception</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--accent);line-height:1;">333</div>
+                <div style="font-size:8px;color:var(--muted);margin-top:2px;">명</div>
+              </div>
+              <div style="padding:10px 16px;text-align:center;border-right:1px solid var(--light);">
+                <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">ADR Conference</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--accent);line-height:1;">372</div>
+                <div style="font-size:8px;color:var(--muted);margin-top:2px;">명</div>
+              </div>
+              <div style="padding:10px 16px;text-align:center;">
+                <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;">Asia Law Summit</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--accent);line-height:1;">209</div>
+                <div style="font-size:8px;color:var(--muted);margin-top:2px;">명</div>
+              </div>
+            </div>
+
+            <!-- 담당 업무 -->
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  메인 행사 홈페이지 운영·관리 및 콘텐츠 업데이트 <strong style="color:var(--accent);">(Wix)</strong>
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  세션별 행사 페이지 운영·관리, 참가자 등록 확인 및 데이터 관리 <strong style="color:var(--accent);">(GlueUp)</strong>
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  Q&amp;A 플랫폼 사전 설정 및 행사 당일 실시간 운영 <strong style="color:var(--accent);">(Pigeonhole)</strong>
+                </li>
+
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  행사 당일 온사이트 운영 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Online · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">제9회 삼성 AI 포럼</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">삼성리서치 &nbsp;·&nbsp; 대행사 : 그라프</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2025.09.16</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:4px;font-weight:500;">근무 1개월</div>
+                </div>
+              </div>
+            </div>
+            <!-- 해외연사 수 -->
+            <div style="padding:10px 24px 0 24px;background:var(--white);border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink);">해외연사</div>
+                <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">총 <strong style="color:var(--accent);font-size:13px;">6</strong>명</div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  대학 대상 홍보 콘텐츠 관리 — 뉴스레터 발송 및 카드뉴스 다채널 업로드 <strong style="color:var(--accent);">(Instagram · 카카오 오픈채팅방 · 네이버 카페)</strong>
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  해외연사 사전 커뮤니케이션 · Zoom 리허설 진행 및 행사 당일 실시간 운영 보조
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">2025 Offline · 2023·2024 Hybrid · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">사회적기업 국제포럼</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">고용노동부 / 한국사회적기업진흥원 &nbsp;·&nbsp; 대행사 : 닷츠비</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2023 · 2024 · 2025</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:4px;font-weight:500;">연도별 근무 2개월</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  국내외 연사 초청 및 관리 — 초청장 발송 · 일정 조율 · 전반 커뮤니케이션 수행
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  항공권 및 숙박 예약 수배 · 이동 및 수송 지원
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  발표자료 수집 및 취합 관리
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  행사 운영 전반 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Offline · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">STRONG KOREA FORUM 2023</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">한국경제신문 · 과학기술정보통신부 &nbsp;·&nbsp; 대행사 : 위드바톤</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2023.05.24</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:4px;font-weight:500;">근무 3개월</div>
+                </div>
+              </div>
+            </div>
+            <!-- 연사 수 -->
+            <div style="padding:10px 24px 0 24px;background:var(--white);border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink);">연사</div>
+                <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">총 <strong style="color:var(--accent);font-size:13px;">29</strong>명</div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  국내외 연사 초청 관리 — 커뮤니케이션 · 일정 조율 · 발표자료 수집 및 취합
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  해외연사 숙박 예약 · 이동 및 수송 지원
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  공식 홈페이지 콘텐츠 업데이트 및 운영
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  Zoom 리허설 진행 · 행사 당일 온사이트 및 온라인 운영
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 파트타임 -->
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">2025</div>
+        <div class="exp-org">각 기관</div>
+      </div>
+      <div>
+        <div class="exp-role">Part-time · 행사 당일 지원</div>
+        <div class="sub-events">
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:6px;">Offline · Korean</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">2025 지식재산 사업화 컨퍼런스</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">지식재산처 / 한국발명진흥회 &nbsp;·&nbsp; 대행사 : 닷츠비</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2025.11.21</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;font-weight:500;">당일 지원</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  세션 담당 — 연사 안내 및 진행 보조
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  네트워킹 세션 행사장 진행 보조
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:6px;">Offline · Korean</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">한국노동연구원 개원 37주년 세미나</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">한국노동연구원 &nbsp;·&nbsp; 대행사 : 오픈마이스</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2025.09.25</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;font-weight:500;">당일 지원</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  등록 데스크 운영 및 참가자 접수 관리
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:6px;">Offline · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">Aramco Supplier Forum 2024</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">Aramco &nbsp;·&nbsp; 대행사 : 위드바톤</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2024.10.21</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;font-weight:500;">당일 지원</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  연사 및 VIP 리에종 — 동선 안내 및 의전 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:6px;">Offline · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">KITECH 35주년 국제 심포지엄</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">한국생산기술연구원 &nbsp;·&nbsp; 대행사 : 위드바톤</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2024.07.03</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;font-weight:500;">당일 지원</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  연사 및 VIP 리에종 — 동선 안내 및 의전 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:6px;">English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">3rd ILO-Korea TVET Forum</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">한국기술교육대학교 · ILO &nbsp;·&nbsp; 대행사 : 위드바톤</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2023.12.07 – 08</div>
+                                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  행사 녹화본 기반 전체 발언록 작성 및 완성
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  행사 기획 단계 호텔 장소 사전 조사 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:6px;">Offline · Korean</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">글로벌 전파관리 포럼 2023</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">과학기술정보통신부 / 중앙전파관리소 &nbsp;·&nbsp; 대행사 : 위드바톤</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2023.09.06 – 07</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;font-weight:500;">당일 지원</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  등록 데스크 운영 및 참가자 접수 관리
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:6px;">Offline · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">ICSA 2023 연차총회 및 국제컨퍼런스</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">금융투자협회 &nbsp;·&nbsp; 대행사 : 위드바톤</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2023.06.18 – 20</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;font-weight:500;">당일 지원</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  행사장 운영 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:6px;">Offline · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">제7회 글로벌 푸드 트렌드 & 테크 컨퍼런스</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">KOTRA &nbsp;·&nbsp; 대행사 : 위드바톤</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2023.05.31</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;font-weight:500;">당일 지원</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  해외연사 섭외 · 관리 · 커뮤니케이션
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  행사 당일 온사이트 운영 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);font-weight:600;margin-bottom:6px;">Offline · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">국제 TVET 세미나 & TVET–Campus Forum</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">한국기술교육대학교 &nbsp;·&nbsp; 대행사 : 위드바톤</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2023.02.21 – 22</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;font-weight:500;">당일 지원</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  행사장 운영 지원
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--muted);font-size:11px;">✦</span>
+                  투어 현장 통역 (한국어 ↔ 영어)
+                </li>
+              </ul>
+            </div>
+          </div>        <div class="exp-duration">2년 2개월</div>
+        <div class="exp-org">위드바톤 (Withbaton)</div>
+        <div class="exp-rank">대리 · 기획</div>
+      </div>
+      <div>
+        <div class="exp-role">위드바톤 · 대리</div>
+        <div style="margin-bottom:24px;padding:20px 24px;background:var(--ink);border-radius:4px;">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="color:#6ab0f5;font-size:16px;flex-shrink:0;margin-top:1px;">✦</span>
+              <span style="font-size:13px;color:rgba(200,218,240,0.9);line-height:1.7;font-weight:400;">국내외 연사 초청 · 일정 조율 · 발표자료 관리 등 <strong style="color:#ffffff;">연사 관련 업무 전반 수행</strong></span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="color:#6ab0f5;font-size:16px;flex-shrink:0;margin-top:1px;">✦</span>
+              <span style="font-size:13px;color:rgba(200,218,240,0.9);line-height:1.7;font-weight:400;"><strong style="color:#ffffff;">Zoom · Zep</strong> 등 다양한 온라인 플랫폼 운영</span>
+            </div>
+          </div>
+        </div>
+        <div class="sub-events">
+
+          <!-- PA 라벨 -->
+          <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Project Assistant (PA)</div>
+
+          <!-- KENTECH -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Offline · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">2022 KENTECH 국제 심포지엄</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">한국에너지공과대학교</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2022.11.02</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  국내외 연사 관리
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          
+
+          <!-- 코리아 크루즈 트래블 마트 -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Offline · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">2022 코리아 크루즈 트래블 마트</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">문화체육관광부 · 전라남도 · 여수시</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2022.10.19 – 20</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  해외 바이어 30개사 관리 — 일정 조율 및 커뮤니케이션
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  출입국 지원 · 수송 및 동선 관리
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 글로벌 푸드 트렌드 컨퍼런스 -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Offline · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">글로벌 푸드 트렌드 & 테크 컨퍼런스</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">KOTRA</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2021 · 2022</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  국내외 연사 관리
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 한-아세안 청소년 서밋 -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Online · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">한-아세안 청소년 서밋</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">여성가족부 / 한국청소년단체협의회</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2021 · 2022</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-top:4px;font-weight:500;">연간 프로젝트</div>
+                </div>
+              </div>
+            </div>
+            <!-- 참가자 수 -->
+            <div style="padding:10px 24px 0 24px;background:var(--white);border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink);">참가자</div>
+                <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">ASEAN 9개국 + 한국 &nbsp;·&nbsp; 총 <strong style="color:var(--accent);font-size:13px;">100</strong>명</div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  메인 행사 및 부대프로그램 국내외 연사 제안 · 섭외 · 관리
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  참가자 100명 관리 (ASEAN 9개국 + 한국)
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  Zoom · Zep 부대프로그램 플랫폼 운영 및 가이드라인 작성
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  자료 번역 및 통역 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 사회적기업 국제포럼 -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Hybrid · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">사회적기업 국제포럼</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">고용노동부 / 한국사회적기업진흥원</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2021 · 2022</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  국내외 연사 관리 및 발표자료 관리
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  Zoom 리허설 운영 및 행사 당일 온사이트 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- POLA + 9th Asia-Pacific -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Online · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">31st POLA Conference</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">대한변호사협회</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2021.11.02 – 03</div>
+                </div>
+              </div>
+            </div>
+            <!-- 통계 -->
+            <div style="padding:10px 24px 0 24px;background:var(--white);border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink);">규모</div>
+                <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">아시아 <strong style="color:var(--accent);font-size:13px;">20</strong>개 변호사단체 &nbsp;·&nbsp; <strong style="color:var(--accent);font-size:13px;">5</strong>개 세션</div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  Zoom 플랫폼 운영 · 연사 사전 리허설 진행
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  참가자 등록 관리 · 행사 당일 온사이트 지원
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  프로그램북 제작
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 강원 크루즈 포럼 -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Hybrid · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">2021 강원 크루즈 포럼</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">강원도 / 속초시</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2021.11.11 – 12</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  국내외 연사 관리 · Zoom 운영 · 행사 당일 온사이트 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- TVET -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Hybrid · Korean · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">국제 TVET 세미나 & TVET–Campus Forum</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">한국기술교육대학교</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2020 · 2021 · 2022</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  국내외 연사 관리 — 초청 · 일정 조율 · 커뮤니케이션
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  Zoom 리허설 진행 및 온라인 플랫폼 운영
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  발표자료 수집 및 취합 관리
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  행사 당일 온사이트 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 한-러 문화교류 포럼 -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Hybrid · Korean · Russian</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">한-러 문화교류 포럼</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2020.12.04</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  국내외 연사 관리 · 사전녹화 진행 · Zoom 리허설
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  홍보물 번역 (한국어 ↔ 러시아어) 및 온라인 업로드
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  행사 당일 온사이트 지원
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- The 9th Asia-Pacific -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Hybrid · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">The 9th Asia-Pacific International Conference</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">한국법제연구원</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2020.11.26</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  국내외 연사 관리 · Zoom 플랫폼 운영 · 사전 리허설 진행
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  행사 당일 온사이트 지원
+                </li>
+              </ul>
+            </div>
+          </div><!-- 운영 보조 라벨 -->
+          <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-top:16px;margin-bottom:8px;">운영 보조</div>
+
+          <!-- 보조 리스트 테이블 -->
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 2px 8px rgba(13,33,55,0.05);">
+            <table style="width:100%;border-collapse:collapse;">
+              <thead>
+                <tr style="background:var(--paper);">
+                  <th style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--muted);font-weight:500;text-align:left;padding:10px 16px;">행사명</th>
+                  <th style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--muted);font-weight:500;text-align:left;padding:10px 16px;">일시</th>
+                  <th style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--muted);font-weight:500;text-align:left;padding:10px 16px;">주최</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-top:1px solid var(--light);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">K-디지털 트레이닝 컨퍼런스</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2022.12.07</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">고용노동부 / 한국기술교육대학교</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);background:var(--paper);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">CSR 2022 함께하는 기업어워드 & CSR 필름페스티벌</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2022.12.02</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">이투데이</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2022 제3회 K-디지털 트레이닝 해커톤</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2022.11.28</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">고용노동부 / 한국기술교육대학교</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);background:var(--paper);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">서울 기후-에너지 회의 2022</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2022.06.30</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">이투데이</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2022 서울국제식품산업대전 개막식</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2022.06.07</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">KOTRA / KINTEX</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);background:var(--paper);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2022 함께하는 기업 CSR 국제 콘퍼런스</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2022.05.26</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">이투데이</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">"탄소중립 목표달성을 위한 에너지혁신" 전문가 라운드테이블</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2021.12.14</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">한국법제연구원</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);background:var(--paper);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2022년 상반기 K-디지털 트레이닝 설명회</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2021.12.09</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">고용노동부 / 한국기술교육대학교</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2021년 전국청소년지도자대회</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2021.12.01</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">한국청소년단체협의회</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);background:var(--paper);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2021 꿈꾸는 디케 프로젝트 결과보고대회</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2021.11.26</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">법무부</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2021 함께하는 기업어워드 & CSR 필름페스티벌</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2021.11.25</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">이투데이</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);background:var(--paper);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2021 글로벌 인더스트리 쇼퍼런스</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2021.10.21</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">한국경제TV</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2021 아시아 ESG 심포지엄</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2021.09.29</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">아시아경제</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);background:var(--paper);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">아세안 스마트시티 개발협력 포럼</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2021.09.08</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">신남방정책특별위원회</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">서울 기후-에너지 회의 2021</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2021.06.24</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">이투데이</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);background:var(--paper);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2021 함께하는 기업 CSR 국제 콘퍼런스</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2021.05.26</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">이투데이</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2020 LH 스마트시티 포럼</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2020.11.19 – 20</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">LH 한국토지주택공사</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);background:var(--paper);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">2020 해양실크로드 국제 학술대회</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2020.10.22</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">국립해양문화재연구소</td>
+                </tr>
+                <tr style="border-top:1px solid var(--light);">
+                  <td style="font-size:12px;color:var(--ink);padding:10px 16px;">미 대선 관련 한미 전문가 간담회</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:10px 16px;">2020.09.18</td>
+                  <td style="font-size:11px;color:var(--muted);padding:10px 16px;">외교부 / 국립외교원</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 더플러스컴 -->
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">2019.07 — 2020.09</div>
+        <div class="exp-duration">1년 3개월 · 서울</div>
+        <div class="exp-org">더플러스컴 (The Plus Com)</div>
+        <div class="exp-rank">사원 / 팀원 1년차</div>
+      </div>
+      <div>
+        <div class="exp-role">더플러스컴 · 사원</div>
+        <div class="sub-events">
+          <div style="background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(13,33,55,0.1);">
+            <div style="background:var(--white);padding:20px 24px;border-left:5px solid var(--accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--accent);font-weight:600;margin-bottom:6px;">Offline · Korean · Russian · English</div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;">제6차 세계한인정치인포럼</div>
+                  <div style="font-size:10px;color:var(--muted);margin-top:5px;">세계한인정치인협의회 / 재외동포재단</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);font-weight:600;">2019.07 – 09</div>
+                </div>
+              </div>
+            </div>
+            <!-- 참가자 수 -->
+            <div style="padding:10px 24px 0 24px;background:var(--white);border-left:5px solid var(--light);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink);">참가자</div>
+                <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);">16개국 한인 정치인 &nbsp;·&nbsp; 총 <strong style="color:var(--accent);font-size:13px;">60</strong>여 명</div>
+              </div>
+            </div>
+            <div style="padding:18px 24px;">
+              <div style="font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;">담당 업무</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  참가자 관리 · 수송 및 이동 동선 관리
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  영어-러시아어 통번역
+                </li>
+                <li style="font-size:12px;color:var(--ink);padding-left:18px;position:relative;line-height:1.7;word-break:keep-all;">
+                  <span style="position:absolute;left:0;top:0;color:var(--accent);font-size:11px;">✦</span>
+                  VIP 만찬 한국어-러시아어-영어 순차 통역
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── 기타 경험 및 활동 ── -->
+<section class="additional-section">
+  <div class="section-label">Activities</div>
+  <div class="add-grid">
+    <div class="add-card">
+      <div class="add-year">2018.04 – 2018.12</div>
+      <div class="add-title">한-러 통번역 자원봉사</div>
+      <div class="add-org">재외동포재단</div>
+      <div class="add-desc">한국어-러시아어 통역 및 번역 자원봉사 활동</div>
+    </div>
+    <div class="add-card">
+      <div class="add-year">2015.07</div>
+      <div class="add-title">인턴십 — 사무보조</div>
+      <div class="add-org">TRT 터키 라디오 텔레비전 공사</div>
+      <div class="add-desc">국제 방송 기관 사무 보조 인턴십</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 핵심 역량 ── -->
+<section class="skills-section">
+  <div class="section-label" style="color:var(--ink);border-color:#6ab0f5;">Skills</div>
+  <div class="skills-layout">
+    <div>
+      <div class="skill-category-title">행사 운영</div>
+      <div class="skill-list">
+        <div class="skill-item">
+          <div class="skill-name">국제회의 기획 및 운영</div>
+          <div class="skill-bar"><div class="skill-fill" data-w="95"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">국내외 연사 섭외 및 관리</div>
+          <div class="skill-bar"><div class="skill-fill" data-w="93"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">참가자 관리</div>
+          <div class="skill-bar"><div class="skill-fill" data-w="92"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">ZOOM 운영 및 온라인 행사 진행</div>
+          <div class="skill-bar"><div class="skill-fill" data-w="90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">Wix · GlueUp · Pigeonhole</div>
+          <div class="skill-bar"><div class="skill-fill" data-w="82"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">VIP 의전 및 수송·숙박 관리</div>
+          <div class="skill-bar"><div class="skill-fill" data-w="85"></div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="skill-category-title">언어 · 커뮤니케이션</div>
+      <div class="skill-list">
+        <div class="skill-item">
+          <div class="skill-name">한국어 — TOPIK 6급 (2021.05)</div>
+          <div class="skill-bar"><div class="skill-fill" data-w="98"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">영어 — TOEIC 915점 (2026.02)</div>
+          <div class="skill-bar"><div class="skill-fill" data-w="90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">러시아어 — 원어민</div>
+          <div class="skill-bar"><div class="skill-fill" data-w="100"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">순차 통역</div>
+          <div class="skill-bar"><div class="skill-fill" data-w="88"></div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 학력 ── -->
+<section class="education-section">
+  <div class="section-label">Education</div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-year">2023.09 — 2025.08</div>
+      <div class="edu-degree">대학원 박사 수료</div>
+      <div class="edu-field">광고홍보학과</div>
+      <div class="edu-school">한양대학교 ERICA</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2017.09 — 2019.08</div>
+      <div class="edu-degree">대학원 석사 졸업</div>
+      <div class="edu-field">광고홍보학과</div>
+      <div class="edu-school">한양대학교 ERICA</div>
+      <div class="edu-thesis">논문: "Optimistic Bias toward HIV/AIDS in the Korean Society: Factors and the Outcome"</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2011.09 — 2016.08</div>
+      <div class="edu-degree">학사 졸업</div>
+      <div class="edu-field">광고홍보학과</div>
+      <div class="edu-school">키르기스-터키 마나스 대학교 · 비슈케크</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 푸터 ── -->
+<footer>
+  <div class="footer-name">김옐레나 <span style="color:rgba(200,218,240,0.3);font-size:0.55em;font-family:'Cormorant Garamond',serif;font-style:italic;">Elena Kim</span></div>
+  <div class="footer-contact">
+    <a href="tel:010-7140-1005">010-7140-1005</a>
+    <a href="/cdn-cgi/l/email-protection#dcb7b5b1b0b9b2bde5e8af9cbbb1bdb5b0f2bfb3b1"><span class="__cf_email__" data-cfemail="ff949692939a919ec6cb8cbf98929e9693d19c9092">[email&#160;protected]</span></a>
+    <a href="/cdn-cgi/l/email-protection#ee858783828b808fd7da9dae808f988b9cc08d8183"><span class="__cf_email__" data-cfemail="fb909296979e959ac2cf88bb959a8
